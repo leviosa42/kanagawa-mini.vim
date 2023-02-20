@@ -85,7 +85,7 @@ let s:config = extend({
     \ 'colors': {},
     \ 'overrides': {},
     \ 'theme': 'default'
-    \ }, get(g:, 'kanagawa_vim', {}))
+    \ }, get(g:, 'kanagawa_mini_vim', {}))
 
 let s:colors = {
     \ 'bg' : s:p.sumiInk1,
