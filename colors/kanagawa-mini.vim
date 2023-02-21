@@ -213,7 +213,7 @@ call s:h('SpellRare', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
 call s:h('StatusLine', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_status })
 call s:h('StatusLineNC', { 'fg': s:colors.fg_comment, 'bg': s:colors.bg_status })
 if s:has_nvim | call s:h('Winbar', { 'fg': s:colors.fg_dark, 'bg': 'NONE' }) | endif
-fi s:has_nvim | call s:h('WinbarNC', { 'fg': s:colors.fg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dim : 'NONE' }) | endif
+if s:has_nvim | call s:h('WinbarNC', { 'fg': s:colors.fg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dim : 'NONE' }) | endif
 call s:h('TabLine', { 'bg': s:colors.bg_dark, 'fg': s:colors.bg_light3 })
 call s:h('TabLineFill', { 'bg': s:colors.bg })
 call s:h('TabLineSel', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_light1 })
