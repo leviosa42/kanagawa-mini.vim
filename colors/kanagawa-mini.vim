@@ -68,6 +68,7 @@ let g:terminal_ansi_colors = [
     \ s:p.fujiWhite,
     \ ]
 
+let g:kanagawa_mini_vim = {}
 let s:config = extend({
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
@@ -142,6 +143,8 @@ let s:colors = {
     \ }
 
 function! s:h(group, style) abort
+    if empty(a:style)
+        return
     end
     if has_key(a:style, 'link')
         execute 'hi' 'link' a:group a:style.link
