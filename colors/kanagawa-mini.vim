@@ -7,47 +7,74 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let s:p = {
-    \ 'sumiInk0'      : '#16161D',
-    \ 'sumiInk1b'     : '#181820',
-    \ 'sumiInk1c'     : '#1a1a22',
-    \ 'sumiInk1'      : '#1F1F28',
-    \ 'sumiInk2'      : '#2A2A37',
-    \ 'sumiInk3'      : '#363646',
-    \ 'sumiInk4'      : '#54546D',
-    \ 'waveBlue1'     : '#223249',
-    \ 'waveBlue2'     : '#2D4F67',
-    \ 'winterGreen'   : '#2B3328',
-    \ 'winterYellow'  : '#49443C',
-    \ 'winterRed'     : '#43242B',
-    \ 'winterBlue'    : '#252535',
-    \ 'autumnGreen'   : '#76946A',
-    \ 'autumnRed'     : '#C34043',
-    \ 'autumnYellow'  : '#DCA561',
-    \ 'samuraiRed'    : '#E82424',
-    \ 'roninYellow'   : '#FF9E3B',
-    \ 'waveAqua1'     : '#6A9589',
-    \ 'dragonBlue'    : '#658594',
-    \ 'oldWhite'      : '#C8C093',
-    \ 'fujiWhite'     : '#DCD7BA',
-    \ 'fujiGray'      : '#727169',
-    \ 'springViolet1' : '#938AA9',
-    \ 'oniViolet'     : '#957FB8',
-    \ 'crystalBlue'   : '#7E9CD8',
-    \ 'springViolet2' : '#9CABCA',
-    \ 'springBlue'    : '#7FB4CA',
-    \ 'lightBlue'     : '#A3D4D5',
-    \ 'waveAqua2'     : '#7AA89F',
-    \ 'springGreen'   : '#98BB6C',
-    \ 'boatYellow1'   : '#938056',
-    \ 'boatYellow2'   : '#C0A36E',
-    \ 'carpYellow'    : '#E6C384',
-    \ 'sakuraPink'    : '#D27E99',
-    \ 'waveRed'       : '#E46876',
-    \ 'peachRed'      : '#FF5D62',
-    \ 'surimiOrange'  : '#FFA066',
-    \ 'katanaGray'    : '#717C7C'
-    \ }
+let g:kanagawa_mini_vim = {}
+let s:config = extend({
+    \ 'undercurl': v:true,
+    \ 'commentStyle': 'italic',
+    \ 'functionStyle': 'NONE',
+    \ 'keywordStyle': 'italic',
+    \ 'statementStyle': 'bold',
+    \ 'typeStyle': 'NONE',
+    \ 'variablebuiltinStyle': 'italic',
+    \ 'specialReturn': v:true,
+    \ 'specialExeption': v:true,
+    \ 'transparent': v:false,
+    \ 'dimInactive': v:false,
+    \ 'globalSTatus': v:false,
+    \ 'terminalColors': v:true,
+    \ 'colors': {},
+    \ 'overrides': {},
+    \ 'theme': 'default'
+    \ }, get(g:, 'kanagawa_mini_vim', {}))
+
+function! s:get_palette(theme) abort
+    let l:palettes  = {
+        \ 'default': {
+            \ 'sumiInk0'      : '#16161D',
+            \ 'sumiInk1b'     : '#181820',
+            \ 'sumiInk1c'     : '#1a1a22',
+            \ 'sumiInk1'      : '#1F1F28',
+            \ 'sumiInk2'      : '#2A2A37',
+            \ 'sumiInk3'      : '#363646',
+            \ 'sumiInk4'      : '#54546D',
+            \ 'waveBlue1'     : '#223249',
+            \ 'waveBlue2'     : '#2D4F67',
+            \ 'winterGreen'   : '#2B3328',
+            \ 'winterYellow'  : '#49443C',
+            \ 'winterRed'     : '#43242B',
+            \ 'winterBlue'    : '#252535',
+            \ 'autumnGreen'   : '#76946A',
+            \ 'autumnRed'     : '#C34043',
+            \ 'autumnYellow'  : '#DCA561',
+            \ 'samuraiRed'    : '#E82424',
+            \ 'roninYellow'   : '#FF9E3B',
+            \ 'waveAqua1'     : '#6A9589',
+            \ 'dragonBlue'    : '#658594',
+            \ 'oldWhite'      : '#C8C093',
+            \ 'fujiWhite'     : '#DCD7BA',
+            \ 'fujiGray'      : '#727169',
+            \ 'springViolet1' : '#938AA9',
+            \ 'oniViolet'     : '#957FB8',
+            \ 'crystalBlue'   : '#7E9CD8',
+            \ 'springViolet2' : '#9CABCA',
+            \ 'springBlue'    : '#7FB4CA',
+            \ 'lightBlue'     : '#A3D4D5',
+            \ 'waveAqua2'     : '#7AA89F',
+            \ 'springGreen'   : '#98BB6C',
+            \ 'boatYellow1'   : '#938056',
+            \ 'boatYellow2'   : '#C0A36E',
+            \ 'carpYellow'    : '#E6C384',
+            \ 'sakuraPink'    : '#D27E99',
+            \ 'waveRed'       : '#E46876',
+            \ 'peachRed'      : '#FF5D62',
+            \ 'surimiOrange'  : '#FFA066',
+            \ 'katanaGray'    : '#717C7C'
+            \ }
+        \ }
+    return l:palettes[a:theme]
+endfunction
+
+let s:p = s:get_palette(s:config.theme)
 
 let g:terminal_ansi_colors = [
     \ '#090618',
@@ -68,25 +95,6 @@ let g:terminal_ansi_colors = [
     \ s:p.fujiWhite,
     \ ]
 
-let g:kanagawa_mini_vim = {}
-let s:config = extend({
-    \ 'undercurl': v:true,
-    \ 'commentStyle': 'italic',
-    \ 'functionStyle': 'NONE',
-    \ 'keywordStyle': 'italic',
-    \ 'statementStyle': 'bold',
-    \ 'typeStyle': 'NONE',
-    \ 'variablebuiltinStyle': 'italic',
-    \ 'specialReturn': v:true,
-    \ 'specialExeption': v:true,
-    \ 'transparent': v:false,
-    \ 'dimInactive': v:false,
-    \ 'globalSTatus': v:false,
-    \ 'terminalColors': v:true,
-    \ 'colors': {},
-    \ 'overrides': {},
-    \ 'theme': 'default'
-    \ }, get(g:, 'kanagawa_mini_vim', {}))
 
 let s:colors = {
     \ 'bg' : s:p.sumiInk1,
@@ -145,11 +153,11 @@ let s:colors = {
 function! s:h(group, style) abort
     if empty(a:style)
         return
-    end
+    endif
     if has_key(a:style, 'link')
         execute 'hi' 'link' a:group a:style.link
         return
-    end
+    endif
     execute 'hi' a:group
     \ 'guibg=' . (has_key(a:style, 'bg')  ? a:style.bg  : 'NONE')
     \ 'guifg=' . (has_key(a:style, 'fg')  ? a:style.fg  : 'NONE')
@@ -203,7 +211,7 @@ call s:h('PmenuThumb', { 'bg': s:colors.bg_search })
 call s:h('Question', { 'link': 'MoreMsg' })
 call s:h('QuickFixLine', { 'link': 'CursorLine' })
 call s:h('Search', { 'fg': s:colors.fg, 'bg': s:colors.bg_search })
-if s:has_nvim | csll s:h('CurSearch', { 'link': 'Search' }) | endif
+if s:has_nvim | call s:h('CurSearch', { 'link': 'Search' }) | endif
 call s:h('IncSearch', { 'fg': s:colors.bg_visual, 'bg': s:colors.diag.warning })
 call s:h('SpecialKey', { 'link': 'NonText' })
 call s:h('SpellBad', { 'sp': s:colors.diag.error, 'gui': 'undercurl' })
