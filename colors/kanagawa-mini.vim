@@ -1,3 +1,10 @@
+" Name:        Kanagawa-mini
+" Description: A minimal color scheme ported from rebelot's kanagawa.nvim for Vim.
+"              See also: https://github.com/rebelot/kanagawa.nvim
+" Author:      leviosa42
+" WebSite:     https://github.com/leviosa42/kanagawa-mini.vim
+" License:     MIT license
+
 let g:colors_name = expand('<sfile>:t:r')
 
 set bg=dark
