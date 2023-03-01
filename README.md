@@ -4,7 +4,7 @@ A Minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
 ## Configure
 
-```vimscript
+```vim
 " Default options.
 let g:kanagawa_mini = {
     \ 'undercurl': v:true,
