@@ -7,7 +7,7 @@ This color scheme defines only the highlight groups described in :h highlight-gr
 ## Configure
 
 ```vim
-" Default options
+" Default options:
 let g:kanagawa_mini = {
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
