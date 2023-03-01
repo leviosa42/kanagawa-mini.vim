@@ -7,7 +7,10 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let g:kanagawa_mini_vim = {}
+if !exists("kanagawa_mini")
+    let g:kanagawa_mini = {}
+endif
+ 
 let s:config = extend({
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
@@ -25,7 +28,7 @@ let s:config = extend({
     \ 'colors': {},
     \ 'overrides': {},
     \ 'theme': 'default'
-    \ }, get(g:, 'kanagawa_mini_vim', {}))
+    \ }, get(g:, 'kanagawa_mini', {}))
 
 function! s:get_palette(theme) abort
     let l:palettes  = {
