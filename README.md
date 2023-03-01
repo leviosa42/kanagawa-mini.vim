@@ -1,6 +1,6 @@
 ## :ocean: kanagawa-mini.vim :ocean:
 
-A Minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
+A minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
 ## Configure
 
