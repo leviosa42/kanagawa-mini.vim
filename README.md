@@ -22,5 +22,13 @@ let g:kanagawa_mini = {
     \ }
 ```
 
+## License
+
+[MIT license](/LICENSE)
+
+## Acknowledgements
+
+- [rebelot/kanagawa.nvim]
+
 <!-- links -->
 [rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
