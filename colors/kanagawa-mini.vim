@@ -14,10 +14,6 @@ if exists("syntax_on")
     syntax reset
 endif
 
-if !exists("kanagawa_mini")
-    let g:kanagawa_mini = {}
-endif
- 
 let s:config = extend({
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
@@ -36,6 +32,10 @@ let s:config = extend({
     \ 'overrides': {},
     \ 'theme': 'default'
     \ }, get(g:, 'kanagawa_mini', {}))
+
+if !exists('kanagawa_mini')
+    let g:kanagawa_mini = s:config
+endif
 
 function! s:get_palette(theme) abort
     let l:palettes  = {
