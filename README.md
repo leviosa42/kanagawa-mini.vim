@@ -2,10 +2,12 @@
 
 A minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
+This color scheme defines only the highlight groups described in :h highlight-groups and :h group-names.
+
 ## Configure
 
 ```vim
-" Default options.
+" Default options
 let g:kanagawa_mini = {
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
