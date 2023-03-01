@@ -14,24 +14,23 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let s:config = extend({
-    \ 'undercurl': v:true,
-    \ 'commentStyle': 'italic',
-    \ 'functionStyle': 'NONE',
-    \ 'keywordStyle': 'italic',
-    \ 'statementStyle': 'bold',
-    \ 'typeStyle': 'NONE',
-    \ 'variablebuiltinStyle': 'italic',
-    \ 'specialReturn': v:true,
-    \ 'specialExeption': v:true,
-    \ 'transparent': v:false,
-    \ 'dimInactive': v:false,
-    \ 'globalSTatus': v:false,
-    \ 'terminalColors': v:true,
-    \ 'colors': {},
-    \ 'overrides': {},
-    \ 'theme': 'default'
-    \ }, get(g:, 'kanagawa_mini', {}))
+let s:config = {}
+let s:config.undercurl = get(g:kanagawa_mini, 'undercurl', v:true)
+let s:config.commentStyle = get(g:kanagawa_mini, 'commentStyle', 'italic')
+let s:config.functionStyle = get(g:kanagawa_mini, 'functionStyle', 'NONE')
+let s:config.keywordStyle = get(g:kanagawa_mini, 'keywordStyle', 'italic')
+let s:config.statementStyle = get(g:kanagawa_mini, 'statementStyle', 'bold')
+let s:config.typeStyle = get(g:kanagawa_mini, 'typeStyle', 'NONE')
+let s:config.variablebuiltinStyle = get(g:kanagawa_mini, 'variablebuiltinStyle', 'italic')
+let s:config.specialReturn = get(g:kanagawa_mini, 'specialReturn', v:true)
+let s:config.specialExeption = get(g:kanagawa_mini, 'specialExeption', v:true)
+let s:config.transparent = get(g:kanagawa_mini, 'transparent', v:false)
+let s:config.dimInactive = get(g:kanagawa_mini, 'dimInactive', v:false)
+let s:config.globalStatus = get(g:kanagawa_mini, 'globalStatus', v:false)
+let s:config.terminalColors = get(g:kanagawa_mini, 'terminalColors', v:true)
+let s:config.colors = get(g:kanagawa_mini, 'colors', {})
+let s:config.overrides = get(g:kanagawa_mini, 'overrides', {})
+let s:config.theme = get(g:kanagawa_mini, 'theme', 'default')
 
 if !exists('kanagawa_mini')
     let g:kanagawa_mini = s:config
