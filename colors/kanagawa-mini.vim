@@ -86,25 +86,26 @@ endfunction
 
 let s:p = s:get_palette(s:config.theme)
 
-let g:terminal_ansi_colors = [
-    \ '#090618',
-    \ s:p.autumnRed,
-    \ s:p.autumnGreen,
-    \ s:p.boatYellow2,
-    \ s:p.crystalBlue,
-    \ s:p.oniViolet,
-    \ s:p.waveAqua1,
-    \ s:p.oldWhite,
-    \ s:p.fujiGray,
-    \ s:p.samuraiRed,
-    \ s:p.springGreen,
-    \ s:p.carpYellow,
-    \ s:p.springBlue,
-    \ s:p.springViolet1,
-    \ s:p.waveAqua2,
-    \ s:p.fujiWhite,
-    \ ]
-
+if s:config.terminalColors
+    let g:terminal_ansi_colors = [
+        \ '#090618',
+        \ s:p.autumnRed,
+        \ s:p.autumnGreen,
+        \ s:p.boatYellow2,
+        \ s:p.crystalBlue,
+        \ s:p.oniViolet,
+        \ s:p.waveAqua1,
+        \ s:p.oldWhite,
+        \ s:p.fujiGray,
+        \ s:p.samuraiRed,
+        \ s:p.springGreen,
+        \ s:p.carpYellow,
+        \ s:p.springBlue,
+        \ s:p.springViolet1,
+        \ s:p.waveAqua2,
+        \ s:p.fujiWhite,
+        \ ]
+endif
 
 let s:colors = {
     \ 'bg' : s:p.sumiInk1,
