@@ -14,6 +14,10 @@ if exists("syntax_on")
     syntax reset
 endif
 
+if !exists('kanagawa_mini')
+    let g:kanagawa_mini = {}
+endif
+
 let s:config = {}
 let s:config.undercurl = get(g:kanagawa_mini, 'undercurl', v:true)
 let s:config.commentStyle = get(g:kanagawa_mini, 'commentStyle', 'italic')
@@ -35,10 +39,6 @@ let s:config.terminalColors = get(g:kanagawa_mini, 'terminalColors', v:true)
 " NOTE: The 'overrides' option is not yet implemented.
 "let s:config.overrides = get(g:kanagawa_mini, 'overrides', {})
 let s:config.theme = get(g:kanagawa_mini, 'theme', 'default')
-
-if !exists('kanagawa_mini')
-    let g:kanagawa_mini = s:config
-endif
 
 function! s:get_palette(theme) abort
     let l:palettes  = {
