@@ -169,7 +169,7 @@ function! s:h(group, style) abort
         return
     endif
     if has_key(a:style, 'link')
-        execute 'hi' 'link' a:group a:style.link
+        execute 'hi!' 'link' a:group a:style.link
         return
     endif
     execute 'hi' a:group
