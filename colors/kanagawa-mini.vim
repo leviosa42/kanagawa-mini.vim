@@ -30,6 +30,10 @@ let s:config.typeStyle = get(g:kanagawa_mini, 'typeStyle', 'NONE')
 let s:config.specialReturn = get(g:kanagawa_mini, 'specialReturn', v:true)
 let s:config.specialExeption = get(g:kanagawa_mini, 'specialExeption', v:true)
 let s:config.transparent = get(g:kanagawa_mini, 'transparent', v:false)
+" NOTE: The 'dimInactive' options was originally for nvim's 'NormalNC'
+"       highlight-group and is therefore not support.
+"       However, since WinSeparator(VertSplit) uses this option,
+"       the option itself is not removed for future use.
 let s:config.dimInactive = get(g:kanagawa_mini, 'dimInactive', v:false)
 " NOTE: It is unsupported because it is used to adjust the highlighting of the
 "       window separator with laststatus=3.
