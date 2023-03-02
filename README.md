@@ -1,8 +1,36 @@
-## :ocean: kanagawa-mini.vim :ocean:
+# :ocean: kanagawa-mini.vim :ocean:
 
 A minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
 This color scheme defines only the highlight groups described in :h highlight-groups and :h group-names.
+
+## Installation
+
+### vim-plug
+
+```vim
+Plug 'leviosa42/kanagawa-mini'
+```
+
+### dein.vim
+
+```vim
+call dein#add('leviosa42/kanagawa-mini')
+```
+
+### manually...
+
+```shell
+$ mkdir -p ~/.vim/colors
+$ cd ~/.vim/colors
+$ curl https://raw.githubusercontent.com/leviosa42/kanagawa-mini.vim/master/colors/kanagawa-mini.vim -o kanagawa-mini.vim
+```
+
+## Usage
+
+```vim
+colorscheme kanagawa-mini
+```
 
 ## Configure
 
@@ -34,3 +62,4 @@ let g:kanagawa_mini = {
 
 <!-- links -->
 [rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
+[vim-plug]: https://github.com/junegunn/vim-plug
