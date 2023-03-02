@@ -1,8 +1,15 @@
 # :ocean: kanagawa-mini.vim :ocean:
 
+<img width="1080" alt="image" src="https://user-images.githubusercontent.com/101305426/222411520-ac1b4391-9314-43c8-b76a-bdd6bde61581.png">
+
 A minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
 This color scheme defines only the highlight groups described in `:h highlight-groups` and `:h group-name`.
+
+## Requirements
+
+- (g)Vim latest
+- gVim or a terminal that supports TrueColor
 
 ## Installation
 
