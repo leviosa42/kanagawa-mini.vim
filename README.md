@@ -53,7 +53,6 @@ let g:kanagawa_mini = {
     \ 'specialReturn': v:true,
     \ 'specialExeption': v:true,
     \ 'transparent': v:false,
-    \ 'dimInactive': v:false,
     \ 'terminalColors': v:true,
     \ 'theme': 'default'
     \ }
