@@ -183,7 +183,7 @@ function! s:h(group, style) abort
         \ : 'NONE')
 endfunction
 
-let s:has_nvim = has('nvim')
+"let s:has_nvim = has('nvim')
 
 call s:h('ColorColumn', { 'bg': s:colors.bg_light0 })
 call s:h('Conceal', { 'fg': s:colors.bg_light3, 'gui': 'bold' })
@@ -208,21 +208,21 @@ call s:h('FoldColumn', { 'fg': s:colors.bg_light2 })
 call s:h('SignColumn', { 'fg': s:colors.bg_light2 })
 " TODO: I couldn't find any docs on this highlight group...
 " call s:h('SignColumnSB', { 'link': 'SignColumn' })
-if s:has_nvim | call s:h('Substitute', { 'fg': s:colors.fg, 'bg': s:colors.git.removed }) | endif
+"if s:has_nvim | call s:h('Substitute', { 'fg': s:colors.fg, 'bg': s:colors.git.removed }) | endif
 call s:h('LineNr', { 'fg': s:colors.bg_light2 })
 call s:h('CursorLineNr', { 'fg': s:colors.diag.warning, 'gui': 'bold' })
 call s:h('MatchParen', { 'fg': s:colors.diag.warning, 'gui': 'bold' })
 call s:h('ModeMsg', { 'fg': s:colors.diag.warning, 'gui': 'bold'})
-if s:has_nvim | call s:h('MsgArea', { 'fg': s:colors.fg_dark }) | endif
+"if s:has_nvim | call s:h('MsgArea', { 'fg': s:colors.fg_dark }) | endif
 " nvim:MsgSeparator
 call s:h('MoreMsg', { 'fg': s:colors.diag.info, 'bg': s:colors.bg })
 call s:h('NonText', { 'fg': s:colors.bg_light2 })
 call s:h('Normal', { 'fg': s:colors.fg, 'bg': !s:config.transparent ? s:colors.bg : 'NONE' })
-if s:has_nvim | call s:h('NormalNC', s:config.dimInactive ? { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dim } : { 'link': 'Normal' }) | endif
-if s:has_nvim | call s:h('NormalSB', { 'link': 'Normal' }) | endif
-if s:has_nvim | call s:h('NormalFloat', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dark }) | endif
-if s:has_nvim | call s:h('FloatBorder', { 'fg': s:colors.fg_border, 'bg': s:colors.bg_dark }) | endif
-if s:has_nvim | call s:h('FloatTitle', { 'fg': s:colors.bg_light3, 'bg': s:colors.bg_dark, 'gui': 'bold' }) | endif
+"if s:has_nvim | call s:h('NormalNC', s:config.dimInactive ? { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dim } : { 'link': 'Normal' }) | endif
+"if s:has_nvim | call s:h('NormalSB', { 'link': 'Normal' }) | endif
+"if s:has_nvim | call s:h('NormalFloat', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dark }) | endif
+"if s:has_nvim | call s:h('FloatBorder', { 'fg': s:colors.fg_border, 'bg': s:colors.bg_dark }) | endif
+"if s:has_nvim | call s:h('FloatTitle', { 'fg': s:colors.bg_light3, 'bg': s:colors.bg_dark, 'gui': 'bold' }) | endif
 call s:h('Pmenu', { 'fg': s:colors.fg_menu, 'bg': s:colors.bg_menu })
 call s:h('PmenuSel', { 'fg': 'NONE', 'bg': s:colors.bg_menu_sel })
 call s:h('PmenuSbar', { 'link': 'Pmenu' })
@@ -230,7 +230,7 @@ call s:h('PmenuThumb', { 'bg': s:colors.bg_search })
 call s:h('Question', { 'link': 'MoreMsg' })
 call s:h('QuickFixLine', { 'link': 'CursorLine' })
 call s:h('Search', { 'fg': s:colors.fg, 'bg': s:colors.bg_search })
-if s:has_nvim | call s:h('CurSearch', { 'link': 'Search' }) | endif
+"if s:has_nvim | call s:h('CurSearch', { 'link': 'Search' }) | endif
 call s:h('IncSearch', { 'fg': s:colors.bg_visual, 'bg': s:colors.diag.warning })
 call s:h('SpecialKey', { 'link': 'NonText' })
 call s:h('SpellBad', { 'sp': s:colors.diag.error, 'gui': 'undercurl' })
@@ -239,8 +239,8 @@ call s:h('SpellLocal', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
 call s:h('SpellRare', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
 call s:h('StatusLine', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_status })
 call s:h('StatusLineNC', { 'fg': s:colors.fg_comment, 'bg': s:colors.bg_status })
-if s:has_nvim | call s:h('Winbar', { 'fg': s:colors.fg_dark, 'bg': 'NONE' }) | endif
-if s:has_nvim | call s:h('WinbarNC', { 'fg': s:colors.fg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dim : 'NONE' }) | endif
+"if s:has_nvim | call s:h('Winbar', { 'fg': s:colors.fg_dark, 'bg': 'NONE' }) | endif
+"if s:has_nvim | call s:h('WinbarNC', { 'fg': s:colors.fg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dim : 'NONE' }) | endif
 call s:h('TabLine', { 'bg': s:colors.bg_dark, 'fg': s:colors.bg_light3 })
 call s:h('TabLineFill', { 'bg': s:colors.bg })
 call s:h('TabLineSel', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_light1 })
@@ -248,7 +248,7 @@ call s:h('Title', { 'fg': s:colors.fn, 'gui': 'bold' })
 call s:h('Visual', { 'bg': s:colors.bg_visual })
 call s:h('VisualNOS', { 'link': 'Visual' })
 call s:h('WarningMsg', { 'fg': s:colors.diag.warning })
-if s:has_nvim | call s:h('Whitespace', { 'fg': s:colors.bg_light2 }) | endif
+"if s:has_nvim | call s:h('Whitespace', { 'fg': s:colors.bg_light2 }) | endif
 call s:h('WildMenu', { 'link': 'Pmenu' })
 
 call s:h('Comment', { 'fg': s:colors.fg_comment })
