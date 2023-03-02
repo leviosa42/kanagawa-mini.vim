@@ -196,8 +196,9 @@ call s:h('EndOfBuffer', { 'fg': s:colors.bg })
 "if s:has_nvim | call s:h('TermCursor', {}) | endif
 "if s:has_nvim | call s:h('TermCursor', {}) | endif
 call s:h('ErrorMsg', { 'fg': s:colors.diag.error })
-call s:h('VertSplit', { 'link': 'WinSeparator' })
-" TODO: nvim:WinSeparator
+" NOTE:
+" https://github.com/rebelot/kanagawa.nvim/blob/4c8d48726621a7f3998c7ed35b2c2535abc22def/lua/kanagawa/hlgroups.lua#L50
+call s:h('VertSplit', { 'fg': s:colors.bg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dark : 'NONE' })
 call s:h('Folded', { 'fg': s:colors.bg_light3, 'bg': s:colors.bg_light0 })
 call s:h('FoldColumn', { 'fg': s:colors.bg_light2 })
 call s:h('SignColumn', { 'fg': s:colors.bg_light2 })
