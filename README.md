@@ -43,6 +43,13 @@ colorscheme kanagawa-mini
 
 ```vim
 " Default options:
+"     undercurl:        Enable undercurl.
+"     *Style:           The style of its highlight groups. See `:h attr-list`.
+"     specialReturn:    Special highlight for the return keyword.
+"     specialException: Special highlight for exception handling keywords.
+"     transparent:      Do not set background color.
+"     terminalColor:    Define g:terminal_ansi_colors.
+"     theme:            Load the specified theme.
 let g:kanagawa_mini = {
     \ 'undercurl': v:true,
     \ 'commentStyle': 'italic',
@@ -57,6 +64,10 @@ let g:kanagawa_mini = {
     \ 'theme': 'default'
     \ }
 ```
+
+### NOTE
+
+The `theme` option only supports **`'default'`**.
 
 ## License
 
