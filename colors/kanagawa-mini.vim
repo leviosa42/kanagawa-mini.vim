@@ -176,7 +176,11 @@ function! s:h(group, style) abort
     \ 'guibg=' . (has_key(a:style, 'bg')  ? a:style.bg  : 'NONE')
     \ 'guifg=' . (has_key(a:style, 'fg')  ? a:style.fg  : 'NONE')
     \ 'guisp=' . (has_key(a:style, 'sp')  ? a:style.sp  : 'NONE')
-    \ 'gui='   . (has_key(a:style, 'gui') ? a:style.gui : 'NONE')
+    \ 'gui='   . (has_key(a:style, 'gui')
+        \ ? a:style.gui == 'undercurl'
+            \ ? s:config.undercurl ? 'undercurl' : 'NONE'
+            \ : a:style.gui
+        \ : 'NONE')
 endfunction
 
 let s:has_nvim = has('nvim')
