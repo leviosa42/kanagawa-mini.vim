@@ -2,7 +2,7 @@
 
 A minimal color scheme ported from [rebelot/kanagawa.nvim] for Vim.
 
-This color scheme defines only the highlight groups described in :h highlight-groups and :h group-names.
+This color scheme defines only the highlight groups described in `:h highlight-groups` and `:h group-name`.
 
 ## Installation
 
