@@ -5,46 +5,40 @@
 " WebSite:     https://github.com/leviosa42/kanagawa-mini.vim
 " License:     MIT license
 
-let g:colors_name = expand('<sfile>:t:r')
-
-set bg=dark
-hi clear
-
-if exists("syntax_on")
-    syntax reset
+if !exists('s:kanagawa_mini')
+    let s:kanagawa_mini = {}
 endif
 
-if !exists('kanagawa_mini')
-    let g:kanagawa_mini = {}
-endif
+function! s:kanagawa_mini.get_config(userconfig) abort " {{{
+    let l:config = {}
+    let l:config.undercurl = get(a:userconfig, 'undercurl', v:true)
+    let l:config.commentStyle = get(a:userconfig, 'commentStyle', 'italic')
+    let l:config.functionStyle = get(a:userconfig, 'functionStyle', 'NONE')
+    let l:config.keywordStyle = get(a:userconfig, 'keywordStyle', 'italic')
+    let l:config.statementStyle = get(a:userconfig, 'statementStyle', 'bold')
+    let l:config.typeStyle = get(a:userconfig, 'typeStyle', 'NONE')
+    " NOTE: The 'variablebuiltinStyle' option was originally for nvim-treesitter's '@variable.built-in'
+    "       and is therefore not supported.
+    let l:config.specialReturn = get(a:userconfig, 'specialReturn', v:true)
+    let l:config.specialExeption = get(a:userconfig, 'specialExeption', v:true)
+    let l:config.transparent = get(a:userconfig, 'transparent', v:false)
+    " NOTE: The 'dimInactive' options was originally for nvim's 'NormalNC'
+    "       highlight-group and is therefore not support.
+    "       However, since WinSeparator(VertSplit) uses this option,
+    "       the option itself is not removed for future use.
+    let l:config.dimInactive = get(a:userconfig, 'dimInactive', v:false)
+    " NOTE: It is unsupported because it is used to adjust the highlighting of the
+    "       window separator with laststatus=3.
+    let l:config.terminalColors = get(a:userconfig, 'terminalColors', v:true)
+    " NOTE: The 'colors' option is not yet implemented.
+    "let l:config.colors = get(a:userconfig, 'colors', {})
+    " NOTE: The 'overrides' option is not yet implemented.
+    "let l:config.overrides = get(a:userconfig, 'overrides', {})
+    let l:config.theme = get(a:userconfig, 'theme', 'default')
+    return l:config
+endfunction " }}}
 
-let s:config = {}
-let s:config.undercurl = get(g:kanagawa_mini, 'undercurl', v:true)
-let s:config.commentStyle = get(g:kanagawa_mini, 'commentStyle', 'italic')
-let s:config.functionStyle = get(g:kanagawa_mini, 'functionStyle', 'NONE')
-let s:config.keywordStyle = get(g:kanagawa_mini, 'keywordStyle', 'italic')
-let s:config.statementStyle = get(g:kanagawa_mini, 'statementStyle', 'bold')
-let s:config.typeStyle = get(g:kanagawa_mini, 'typeStyle', 'NONE')
-" NOTE: The 'variablebuiltinStyle' option was originally for nvim-treesitter's '@variable.built-in'
-"       and is therefore not supported.
-let s:config.specialReturn = get(g:kanagawa_mini, 'specialReturn', v:true)
-let s:config.specialExeption = get(g:kanagawa_mini, 'specialExeption', v:true)
-let s:config.transparent = get(g:kanagawa_mini, 'transparent', v:false)
-" NOTE: The 'dimInactive' options was originally for nvim's 'NormalNC'
-"       highlight-group and is therefore not support.
-"       However, since WinSeparator(VertSplit) uses this option,
-"       the option itself is not removed for future use.
-let s:config.dimInactive = get(g:kanagawa_mini, 'dimInactive', v:false)
-" NOTE: It is unsupported because it is used to adjust the highlighting of the
-"       window separator with laststatus=3.
-let s:config.terminalColors = get(g:kanagawa_mini, 'terminalColors', v:true)
-" NOTE: The 'colors' option is not yet implemented.
-"let s:config.colors = get(g:kanagawa_mini, 'colors', {})
-" NOTE: The 'overrides' option is not yet implemented.
-"let s:config.overrides = get(g:kanagawa_mini, 'overrides', {})
-let s:config.theme = get(g:kanagawa_mini, 'theme', 'default')
-
-function! s:get_palette(theme) abort
+function! s:kanagawa_mini.get_palette(theme) abort " {{{
     let l:palettes  = {
         \ 'default': {
             \ 'sumiInk0'      : '#16161D',
@@ -89,86 +83,88 @@ function! s:get_palette(theme) abort
             \ }
         \ }
     return l:palettes[a:theme]
-endfunction
+endfunction " }}}
 
-let s:p = s:get_palette(s:config.theme)
-
-if s:config.terminalColors
+function! s:kanagawa_mini.set_terminal_ansi_colors(palette) abort " {{{
     let g:terminal_ansi_colors = [
         \ '#090618',
-        \ s:p.autumnRed,
-        \ s:p.autumnGreen,
-        \ s:p.boatYellow2,
-        \ s:p.crystalBlue,
-        \ s:p.oniViolet,
-        \ s:p.waveAqua1,
-        \ s:p.oldWhite,
-        \ s:p.fujiGray,
-        \ s:p.samuraiRed,
-        \ s:p.springGreen,
-        \ s:p.carpYellow,
-        \ s:p.springBlue,
-        \ s:p.springViolet1,
-        \ s:p.waveAqua2,
-        \ s:p.fujiWhite,
+        \ a:palette.autumnRed,
+        \ a:palette.autumnGreen,
+        \ a:palette.boatYellow2,
+        \ a:palette.crystalBlue,
+        \ a:palette.oniViolet,
+        \ a:palette.waveAqua1,
+        \ a:palette.oldWhite,
+        \ a:palette.fujiGray,
+        \ a:palette.samuraiRed,
+        \ a:palette.springGreen,
+        \ a:palette.carpYellow,
+        \ a:palette.springBlue,
+        \ a:palette.springViolet1,
+        \ a:palette.waveAqua2,
+        \ a:palette.fujiWhite,
         \ ]
-endif
+    return
+endfunction " }}}
 
-let s:colors = {
-    \ 'bg' : s:p.sumiInk1,
-    \ 'bg_dim' : s:p.sumiInk1b,
-    \ 'bg_dark' : s:p.sumiInk0,
-    \ 'bg_light0' : s:p.sumiInk2,
-    \ 'bg_light1' : s:p.sumiInk3,
-    \ 'bg_light2' : s:p.sumiInk4,
-    \ 'bg_light3' : s:p.springViolet1,
-    \ 'bg_menu' : s:p.waveBlue1,
-    \ 'bg_menu_sel' : s:p.waveBlue2,
-    \ 'bg_status' : s:p.sumiInk0,
-    \ 'bg_visual' : s:p.waveBlue1,
-    \ 'bg_search' : s:p.waveBlue2,
-    \ 'fg_border' : s:p.sumiInk4,
-    \ 'fg_dark' : s:p.oldWhite,
-    \ 'fg_reverse' : s:p.waveBlue1,
-    \ 'fg_comment' : s:p.fujiGray,
-    \ 'fg' : s:p.fujiWhite,
-    \ 'fg_menu' : s:p.fujiWhite,
-    \ 'co' : s:p.surimiOrange,
-    \ 'st' : s:p.springGreen,
-    \ 'nu' : s:p.sakuraPink,
-    \ 'id' : s:p.carpYellow,
-    \ 'fn' : s:p.crystalBlue,
-    \ 'sm' : s:p.oniViolet,
-    \ 'kw' : s:p.oniViolet,
-    \ 'op' : s:p.boatYellow2,
-    \ 'pp' : s:p.surimiOrange,
-    \ 'ty' : s:p.waveAqua2,
-    \ 'sp' : s:p.springBlue,
-    \ 'sp2' : s:p.waveRed,
-    \ 'sp3' : s:p.peachRed,
-    \ 'br' : s:p.springViolet2,
-    \ 're' : s:p.boatYellow2,
-    \ 'dep' : s:p.katanaGray,
+function! s:kanagawa_mini.get_colors(palette) abort " {{{
+    let l:colors = {
+    \ 'bg' : a:palette.sumiInk1,
+    \ 'bg_dim' : a:palette.sumiInk1b,
+    \ 'bg_dark' : a:palette.sumiInk0,
+    \ 'bg_light0' : a:palette.sumiInk2,
+    \ 'bg_light1' : a:palette.sumiInk3,
+    \ 'bg_light2' : a:palette.sumiInk4,
+    \ 'bg_light3' : a:palette.springViolet1,
+    \ 'bg_menu' : a:palette.waveBlue1,
+    \ 'bg_menu_sel' : a:palette.waveBlue2,
+    \ 'bg_status' : a:palette.sumiInk0,
+    \ 'bg_visual' : a:palette.waveBlue1,
+    \ 'bg_search' : a:palette.waveBlue2,
+    \ 'fg_border' : a:palette.sumiInk4,
+    \ 'fg_dark' : a:palette.oldWhite,
+    \ 'fg_reverse' : a:palette.waveBlue1,
+    \ 'fg_comment' : a:palette.fujiGray,
+    \ 'fg' : a:palette.fujiWhite,
+    \ 'fg_menu' : a:palette.fujiWhite,
+    \ 'co' : a:palette.surimiOrange,
+    \ 'st' : a:palette.springGreen,
+    \ 'nu' : a:palette.sakuraPink,
+    \ 'id' : a:palette.carpYellow,
+    \ 'fn' : a:palette.crystalBlue,
+    \ 'sm' : a:palette.oniViolet,
+    \ 'kw' : a:palette.oniViolet,
+    \ 'op' : a:palette.boatYellow2,
+    \ 'pp' : a:palette.surimiOrange,
+    \ 'ty' : a:palette.waveAqua2,
+    \ 'sp' : a:palette.springBlue,
+    \ 'sp2' : a:palette.waveRed,
+    \ 'sp3' : a:palette.peachRed,
+    \ 'br' : a:palette.springViolet2,
+    \ 're' : a:palette.boatYellow2,
+    \ 'dep' : a:palette.katanaGray,
     \ 'diag' : {
-        \ 'error' : s:p.samuraiRed,
-        \ 'warning' : s:p.roninYellow,
-        \ 'info' : s:p.dragonBlue,
-        \ 'hint' : s:p.waveAqua1,
+        \ 'error' : a:palette.samuraiRed,
+        \ 'warning' : a:palette.roninYellow,
+        \ 'info' : a:palette.dragonBlue,
+        \ 'hint' : a:palette.waveAqua1,
         \ },
     \ 'diff' : {
-        \ 'add' : s:p.winterGreen,
-        \ 'delete' : s:p.winterRed,
-        \ 'change' : s:p.winterBlue,
-        \ 'text' : s:p.winterYellow,
+        \ 'add' : a:palette.winterGreen,
+        \ 'delete' : a:palette.winterRed,
+        \ 'change' : a:palette.winterBlue,
+        \ 'text' : a:palette.winterYellow,
         \ },
     \ 'git' : {
-        \ 'added' : s:p.autumnGreen,
-        \ 'removed' : s:p.autumnRed,
-        \ 'changed' : s:p.autumnYellow,
+        \ 'added' : a:palette.autumnGreen,
+        \ 'removed' : a:palette.autumnRed,
+        \ 'changed' : a:palette.autumnYellow,
         \ },
     \ }
+    return l:colors
+endfunction " }}}
 
-function! s:h(group, style) abort
+function! s:kanagawa_mini.h(group, style) abort " {{{
     if empty(a:style)
         return
     endif
@@ -182,127 +178,153 @@ function! s:h(group, style) abort
     \ 'guisp=' . (has_key(a:style, 'sp')  ? a:style.sp  : 'NONE')
     \ 'gui='   . (has_key(a:style, 'gui')
         \ ? a:style.gui == 'undercurl'
-            \ ? s:config.undercurl ? 'undercurl' : 'NONE'
+            \ ? self.config.undercurl ? 'undercurl' : 'NONE'
             \ : a:style.gui
         \ : 'NONE')
-endfunction
+endfunction " }}}
 
-"let s:has_nvim = has('nvim')
+function! s:kanagawa_mini.hlgroups(colors, config) abort " {{{
+    "let has_nvim = has('nvim')
+    call self.h('ColorColumn', { 'bg': a:colors.bg_light0 })
+    call self.h('Conceal', { 'fg': a:colors.bg_light3, 'gui': 'bold' })
+    call self.h('Cursor', { 'fg': a:colors.bg, 'bg': a:colors.fg })
+    call self.h('lCursor', { 'link': 'Cursor' })
+    call self.h('CursorIM', { 'link': 'Cursor' })
+    call self.h('CursorLine', { 'bg': a:colors.bg_light1 })
+    call self.h('Directory', { 'fg': a:colors.fn })
+    call self.h('DiffAdd', { 'bg': a:colors.diff.add })
+    call self.h('DiffChange', { 'bg': a:colors.diff.change })
+    call self.h('DiffDelete', { 'fg': a:colors.git.removed, 'bg': a:colors.diff.delete })
+    call self.h('DiffText', { 'bg': a:colors.diff.text })
+    call self.h('EndOfBuffer', { 'fg': a:colors.bg })
+    "if self.has_nvim | call l:h('TermCursor', {}) | endif
+    "if self.has_nvim | call l:h('TermCursor', {}) | endif
+    call self.h('ErrorMsg', { 'fg': a:colors.diag.error })
+    " NOTE:
+    " httpl://github.com/rebelot/kanagawa.nvim/blob/4c8d48726621a7f3998c7ed35b2c2535abc22def/lua/kanagawa/hlgroups.lua#L50
+    call self.h('VertSplit', { 'fg': a:colors.bg_dark, 'bg': a:config.dimInactive ? a:colors.bg_dark : 'NONE' })
+    call self.h('Folded', { 'fg': a:colors.bg_light3, 'bg': a:colors.bg_light0 })
+    call self.h('FoldColumn', { 'fg': a:colors.bg_light2 })
+    call self.h('SignColumn', { 'fg': a:colors.bg_light2 })
+    " TODO: I couldn't find any docs on this highlight group...
+    " call self.h('SignColumnSB', { 'link': 'SignColumn' })
+    "if self.has_nvim | call l:h('Substitute', { 'fg': a:colors.fg, 'bg': a:colors.git.removed }) | endif
+    call self.h('LineNr', { 'fg': a:colors.bg_light2 })
+    call self.h('CursorLineNr', { 'fg': a:colors.diag.warning, 'gui': 'bold' })
+    call self.h('MatchParen', { 'fg': a:colors.diag.warning, 'gui': 'bold' })
+    call self.h('ModeMsg', { 'fg': a:colors.diag.warning, 'gui': 'bold'})
+    "if self.has_nvim | call l:h('MsgArea', { 'fg': a:colors.fg_dark }) | endif
+    " nvim:MsgSeparator
+    call self.h('MoreMsg', { 'fg': a:colors.diag.info, 'bg': a:colors.bg })
+    call self.h('NonText', { 'fg': a:colors.bg_light2 })
+    call self.h('Normal', { 'fg': a:colors.fg, 'bg': !a:config.transparent ? a:colors.bg : 'NONE' })
+    "if self.has_nvim | call l:h('NormalNC', a:config.dimInactive ? { 'fg': a:colors.fg_dark, 'bg': a:colors.bg_dim } : { 'link': 'Normal' }) | endif
+    "if self.has_nvim | call l:h('NormalSB', { 'link': 'Normal' }) | endif
+    "if self.has_nvim | call l:h('NormalFloat', { 'fg': a:colors.fg_dark, 'bg': a:colors.bg_dark }) | endif
+    "if self.has_nvim | call l:h('FloatBorder', { 'fg': a:colors.fg_border, 'bg': a:colors.bg_dark }) | endif
+    "if self.has_nvim | call l:h('FloatTitle', { 'fg': a:colors.bg_light3, 'bg': a:colors.bg_dark, 'gui': 'bold' }) | endif
+    call self.h('Pmenu', { 'fg': a:colors.fg_menu, 'bg': a:colors.bg_menu })
+    call self.h('PmenuSel', { 'fg': 'NONE', 'bg': a:colors.bg_menu_sel })
+    call self.h('PmenuSbar', { 'link': 'Pmenu' })
+    call self.h('PmenuThumb', { 'bg': a:colors.bg_search })
+    call self.h('Question', { 'link': 'MoreMsg' })
+    call self.h('QuickFixLine', { 'link': 'CursorLine' })
+    call self.h('Search', { 'fg': a:colors.fg, 'bg': a:colors.bg_search })
+    "if self.has_nvim | call l:h('CurSearch', { 'link': 'Search' }) | endif
+    call self.h('IncSearch', { 'fg': a:colors.bg_visual, 'bg': a:colors.diag.warning })
+    call self.h('SpecialKey', { 'link': 'NonText' })
+    call self.h('SpellBad', { 'sp': a:colors.diag.error, 'gui': 'undercurl' })
+    call self.h('SpellCap', { 'sp': a:colors.diag.warning, 'gui': 'undercurl' })
+    call self.h('SpellLocal', { 'sp': a:colors.diag.warning, 'gui': 'undercurl' })
+    call self.h('SpellRare', { 'sp': a:colors.diag.warning, 'gui': 'undercurl' })
+    call self.h('StatusLine', { 'fg': a:colors.fg_dark, 'bg': a:colors.bg_status })
+    call self.h('StatusLineNC', { 'fg': a:colors.fg_comment, 'bg': a:colors.bg_status })
+    "if self.has_nvim | call l:h('Winbar', { 'fg': a:colors.fg_dark, 'bg': 'NONE' }) | endif
+    "if self.has_nvim | call l:h('WinbarNC', { 'fg': a:colors.fg_dark, 'bg': a:config.dimInactive ? a:colors.bg_dim : 'NONE' }) | endif
+    call self.h('TabLine', { 'bg': a:colors.bg_dark, 'fg': a:colors.bg_light3 })
+    call self.h('TabLineFill', { 'bg': a:colors.bg })
+    call self.h('TabLineSel', { 'fg': a:colors.fg_dark, 'bg': a:colors.bg_light1 })
+    call self.h('Title', { 'fg': a:colors.fn, 'gui': 'bold' })
+    call self.h('Visual', { 'bg': a:colors.bg_visual })
+    call self.h('VisualNOS', { 'link': 'Visual' })
+    call self.h('WarningMsg', { 'fg': a:colors.diag.warning })
+    "if self.has_nvim | call l:h('Whitespace', { 'fg': a:colors.bg_light2 }) | endif
+    call self.h('WildMenu', { 'link': 'Pmenu' })
 
-call s:h('ColorColumn', { 'bg': s:colors.bg_light0 })
-call s:h('Conceal', { 'fg': s:colors.bg_light3, 'gui': 'bold' })
-call s:h('Cursor', { 'fg': s:colors.bg, 'bg': s:colors.fg })
-call s:h('lCursor', { 'link': 'Cursor' })
-call s:h('CursorIM', { 'link': 'Cursor' })
-call s:h('CursorLine', { 'bg': s:colors.bg_light1 })
-call s:h('Directory', { 'fg': s:colors.fn })
-call s:h('DiffAdd', { 'bg': s:colors.diff.add })
-call s:h('DiffChange', { 'bg': s:colors.diff.change })
-call s:h('DiffDelete', { 'fg': s:colors.git.removed, 'bg': s:colors.diff.delete })
-call s:h('DiffText', { 'bg': s:colors.diff.text })
-call s:h('EndOfBuffer', { 'fg': s:colors.bg })
-"if s:has_nvim | call s:h('TermCursor', {}) | endif
-"if s:has_nvim | call s:h('TermCursor', {}) | endif
-call s:h('ErrorMsg', { 'fg': s:colors.diag.error })
-" NOTE:
-" https://github.com/rebelot/kanagawa.nvim/blob/4c8d48726621a7f3998c7ed35b2c2535abc22def/lua/kanagawa/hlgroups.lua#L50
-call s:h('VertSplit', { 'fg': s:colors.bg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dark : 'NONE' })
-call s:h('Folded', { 'fg': s:colors.bg_light3, 'bg': s:colors.bg_light0 })
-call s:h('FoldColumn', { 'fg': s:colors.bg_light2 })
-call s:h('SignColumn', { 'fg': s:colors.bg_light2 })
-" TODO: I couldn't find any docs on this highlight group...
-" call s:h('SignColumnSB', { 'link': 'SignColumn' })
-"if s:has_nvim | call s:h('Substitute', { 'fg': s:colors.fg, 'bg': s:colors.git.removed }) | endif
-call s:h('LineNr', { 'fg': s:colors.bg_light2 })
-call s:h('CursorLineNr', { 'fg': s:colors.diag.warning, 'gui': 'bold' })
-call s:h('MatchParen', { 'fg': s:colors.diag.warning, 'gui': 'bold' })
-call s:h('ModeMsg', { 'fg': s:colors.diag.warning, 'gui': 'bold'})
-"if s:has_nvim | call s:h('MsgArea', { 'fg': s:colors.fg_dark }) | endif
-" nvim:MsgSeparator
-call s:h('MoreMsg', { 'fg': s:colors.diag.info, 'bg': s:colors.bg })
-call s:h('NonText', { 'fg': s:colors.bg_light2 })
-call s:h('Normal', { 'fg': s:colors.fg, 'bg': !s:config.transparent ? s:colors.bg : 'NONE' })
-"if s:has_nvim | call s:h('NormalNC', s:config.dimInactive ? { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dim } : { 'link': 'Normal' }) | endif
-"if s:has_nvim | call s:h('NormalSB', { 'link': 'Normal' }) | endif
-"if s:has_nvim | call s:h('NormalFloat', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_dark }) | endif
-"if s:has_nvim | call s:h('FloatBorder', { 'fg': s:colors.fg_border, 'bg': s:colors.bg_dark }) | endif
-"if s:has_nvim | call s:h('FloatTitle', { 'fg': s:colors.bg_light3, 'bg': s:colors.bg_dark, 'gui': 'bold' }) | endif
-call s:h('Pmenu', { 'fg': s:colors.fg_menu, 'bg': s:colors.bg_menu })
-call s:h('PmenuSel', { 'fg': 'NONE', 'bg': s:colors.bg_menu_sel })
-call s:h('PmenuSbar', { 'link': 'Pmenu' })
-call s:h('PmenuThumb', { 'bg': s:colors.bg_search })
-call s:h('Question', { 'link': 'MoreMsg' })
-call s:h('QuickFixLine', { 'link': 'CursorLine' })
-call s:h('Search', { 'fg': s:colors.fg, 'bg': s:colors.bg_search })
-"if s:has_nvim | call s:h('CurSearch', { 'link': 'Search' }) | endif
-call s:h('IncSearch', { 'fg': s:colors.bg_visual, 'bg': s:colors.diag.warning })
-call s:h('SpecialKey', { 'link': 'NonText' })
-call s:h('SpellBad', { 'sp': s:colors.diag.error, 'gui': 'undercurl' })
-call s:h('SpellCap', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
-call s:h('SpellLocal', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
-call s:h('SpellRare', { 'sp': s:colors.diag.warning, 'gui': 'undercurl' })
-call s:h('StatusLine', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_status })
-call s:h('StatusLineNC', { 'fg': s:colors.fg_comment, 'bg': s:colors.bg_status })
-"if s:has_nvim | call s:h('Winbar', { 'fg': s:colors.fg_dark, 'bg': 'NONE' }) | endif
-"if s:has_nvim | call s:h('WinbarNC', { 'fg': s:colors.fg_dark, 'bg': s:config.dimInactive ? s:colors.bg_dim : 'NONE' }) | endif
-call s:h('TabLine', { 'bg': s:colors.bg_dark, 'fg': s:colors.bg_light3 })
-call s:h('TabLineFill', { 'bg': s:colors.bg })
-call s:h('TabLineSel', { 'fg': s:colors.fg_dark, 'bg': s:colors.bg_light1 })
-call s:h('Title', { 'fg': s:colors.fn, 'gui': 'bold' })
-call s:h('Visual', { 'bg': s:colors.bg_visual })
-call s:h('VisualNOS', { 'link': 'Visual' })
-call s:h('WarningMsg', { 'fg': s:colors.diag.warning })
-"if s:has_nvim | call s:h('Whitespace', { 'fg': s:colors.bg_light2 }) | endif
-call s:h('WildMenu', { 'link': 'Pmenu' })
+    call self.h('Comment', { 'fg': a:colors.fg_comment })
 
-call s:h('Comment', { 'fg': s:colors.fg_comment })
+    call self.h('Constant', { 'fg': a:colors.co })
+    call self.h('String', { 'fg': a:colors.st })
+    call self.h('Character', { 'link': 'String' })
+    call self.h('Number', { 'fg': a:colors.nu })
+    call self.h('Boolean', { 'fg': a:colors.co, 'gui': 'bold' })
+    call self.h('Float', { 'link': 'Number' })
 
-call s:h('Constant', { 'fg': s:colors.co })
-call s:h('String', { 'fg': s:colors.st })
-call s:h('Character', { 'link': 'String' })
-call s:h('Number', { 'fg': s:colors.nu })
-call s:h('Boolean', { 'fg': s:colors.co, 'gui': 'bold' })
-call s:h('Float', { 'link': 'Number' })
+    call self.h('Identifier', { 'fg': a:colors.id })
+    call self.h('Function', { 'fg': a:colors.fn, 'gui': a:config.functionStyle })
 
-call s:h('Identifier', { 'fg': s:colors.id })
-call s:h('Function', { 'fg': s:colors.fn, 'gui': s:config.functionStyle })
+    call self.h('Statement', { 'fg': a:colors.sm, 'gui': a:config.statementStyle })
+    " Conditional
+    " Repeat
+    " Label
+    call self.h('Operator', { 'fg': a:colors.op })
+    call self.h('Keyword', { 'fg': a:colors.kw, 'gui': a:config.keywordStyle })
+    call self.h('Exception', { 'fg': a:colors.sp2 })
 
-call s:h('Statement', { 'fg': s:colors.sm, 'gui': s:config.statementStyle })
-" Conditional
-" Repeat
-" Label
-call s:h('Operator', { 'fg': s:colors.op })
-call s:h('Keyword', { 'fg': s:colors.kw, 'gui': s:config.keywordStyle })
-call s:h('Exception', { 'fg': s:colors.sp2 })
+    call self.h('PreProc', { 'fg': a:colors.pp })
+    " Include
+    " Define
+    " Precondit
 
-call s:h('PreProc', { 'fg': s:colors.pp })
-" Include
-" Define
-" Precondit
+    call self.h('Type', { 'fg': a:colors.ty, 'gui': a:config.typeStyle })
+    " StorageClass
+    " Structure
+    " Typedef
 
-call s:h('Type', { 'fg': s:colors.ty, 'gui': s:config.typeStyle })
-" StorageClass
-" Structure
-" Typedef
+    call self.h('Special', { 'fg': a:colors.sp })
+    " SpecialChar
+    " Tag
+    " Delimiter
+    " SpecialComment
+    " Debug
 
-call s:h('Special', { 'fg': s:colors.sp })
-" SpecialChar
-" Tag
-" Delimiter
-" SpecialComment
-" Debug
+    call self.h('Underlined', { 'fg': a:colors.sp, 'gui': 'underline' })
 
-call s:h('Underlined', { 'fg': s:colors.sp, 'gui': 'underline' })
+    call self.h('Ignore', { 'link': 'NonText' })
 
-call s:h('Ignore', { 'link': 'NonText' })
+    call self.h('Error', { 'fg': a:colors.diag.error })
 
-call s:h('Error', { 'fg': s:colors.diag.error })
+    call self.h('ToDo', { 'fg': a:colors.fg_reverse, 'bg': a:colors.diag.info, 'gui': 'bold' })
 
-call s:h('ToDo', { 'fg': s:colors.fg_reverse, 'bg': s:colors.diag.info, 'gui': 'bold' })
+    "call self.h('Method', { 'link': 'Function' })
+    "call self.h('Structure', { 'link': 'Type' })
+    "call self.h('Bold', { 'gui': 'bold' })
+    "call self.h('Italic', { 'gui': 'italic' })
+endfunction " }}}
 
-"call s:h('Method', { 'link': 'Function' })
-"call s:h('Structure', { 'link': 'Type' })
-"call s:h('Bold', { 'gui': 'bold' })
-"call s:h('Italic', { 'gui': 'italic' })
-"
-" vim: fenc=utf-8 ff=unix ft=vim ts=4 sw=4 sts=4 si et :
+let g:colors_name = expand('<sfile>:t:r')
+
+set bg=dark
+hi clear
+
+if exists("syntax_on")
+    syntax reset
+endif
+
+let s:kanagawa_mini.config = s:kanagawa_mini.get_config(get(g:, 'kanagawa_mini', {}))
+
+if !exists('g:kanagawa_mini')
+    let g:kanagawa_mini = s:kanagawa_mini.config
+endif
+
+let s:kanagawa_mini.palette = s:kanagawa_mini.get_palette(s:kanagawa_mini.config.theme)
+
+if s:kanagawa_mini.config.terminalColors
+    call s:kanagawa_mini.set_terminal_ansi_colors(s:kanagawa_mini.palette)
+endif
+
+let s:kanagawa_mini.colors = s:kanagawa_mini.get_colors(s:kanagawa_mini.palette)
+
+call s:kanagawa_mini.hlgroups(s:kanagawa_mini.colors, s:kanagawa_mini.config)
+
+" vim: fenc=utf-8 ff=unix ft=vim ts=4 sw=4 sts=4 si et fdm=marker fmr={{{,}}}:
